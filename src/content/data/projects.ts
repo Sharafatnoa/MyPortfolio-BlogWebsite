@@ -1,0 +1,58 @@
+import type { Project } from "./types";
+
+export const PROJECTS: Project[] = [
+  {
+    title: "streetdudes.se",
+    kind: "web project",
+    year: "2026",
+    desc: "Bilingual website and online ordering system for a restaurant in Borås, with a live kitchen order dashboard, receipt printing, and an admin panel with sales analytics.",
+    stack: ["Next.js", "TypeScript", "Supabase", "Vercel"],
+    meta: "launching soon",
+    href: "https://streetdudes.se",
+  },
+  {
+    title: "Colon cancer tissue analysis",
+    kind: "personal",
+    year: "2025",
+    desc: "8-class histopathology image classifier comparing a CNN built from scratch with MobileNetV2 transfer learning — about 88% accuracy vs. 85%, with the main STROMA/COMPLEX confusion documented.",
+    stack: ["Python", "Keras", "MobileNetV2"],
+    meta: "Jupyter Notebook",
+    href: "https://github.com/Sharafatnoa/Colon-Cancer-Tissue-Analysis",
+  },
+  {
+    title: "Student performance early warning",
+    kind: "coursework",
+    year: "2025",
+    desc: "Predicts students at risk of failing from the UCI dataset (1,044 students). Earlier grades removed to avoid leakage; Random Forest reached 78.7% accuracy (F1 0.88).",
+    stack: ["Python", "scikit-learn"],
+    meta: "Data Mining course",
+    href: "https://github.com/Sharafatnoa/DM_student_performance_classification",
+  },
+  {
+    title: "Remaining useful life with knowledge distillation",
+    kind: "coursework",
+    year: "2026",
+    desc: "Group mini-thesis on NASA CMAPSS turbofan sensor data: a small student model distilled from a larger teacher so predictions can run on limited hardware.",
+    stack: ["TensorFlow", "Keras", "scikit-learn"],
+    meta: "15-credit project",
+    href: "https://github.com/Sharafatnoa",
+  },
+  {
+    title: "Building energy efficiency app",
+    kind: "personal",
+    year: "2025",
+    desc: "Predicts heating and cooling load of buildings from design parameters, comparing classical machine learning models with a neural network.",
+    stack: ["Python", "scikit-learn", "Keras"],
+    meta: "Jupyter Notebook",
+    href: "https://github.com/Sharafatnoa/Building-Energy-Efficiency-App-using-Machine-Learning-and-NN",
+  },
+  {
+    title: "UN maternal health access",
+    kind: "personal",
+    year: "2025",
+    desc: "Exploratory analysis of a United Nations dataset on access to maternal health care.",
+    stack: ["Python", "pandas", "Matplotlib"],
+    meta: "Jupyter Notebook",
+    href: "https://github.com/Sharafatnoa/UN_Maternal_Health_Access",
+  },
+];
