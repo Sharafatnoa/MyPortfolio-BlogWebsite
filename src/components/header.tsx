@@ -9,8 +9,8 @@ const NAV: Array<{ label: string; href: string; id: string | null }> = [
   { label: "Home", href: "/", id: null },
   { label: "Experience", href: "/#experience", id: "experience" },
   { label: "Education", href: "/#education", id: "education" },
-  { label: "Blog", href: "/blog", id: null },
-  { label: "Projects", href: "/projects", id: null },
+  { label: "Blog", href: "/#writing", id: "writing" },
+  { label: "Projects", href: "/#projects", id: "projects" },
   { label: "Contact", href: "/#contact", id: "contact" },
 ];
 

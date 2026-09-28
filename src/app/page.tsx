@@ -72,7 +72,7 @@ export default function HomePage() {
       </section>
 
       <section className="mt-10 pt-14 pb-5">
-        <SectionHeading title="recent writing" linkHref="/blog" linkLabel="all posts →" />
+        <SectionHeading id="writing" title="recent writing" linkHref="/blog" linkLabel="all posts →" />
         {recent.length > 0 ? (
           <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
             {recent.map((post) => (
@@ -85,7 +85,7 @@ export default function HomePage() {
       </section>
 
       <section className="mt-14 pt-14 pb-5">
-        <SectionHeading title="selected projects" linkHref="/projects" linkLabel="all projects →" />
+        <SectionHeading id="projects" title="selected projects" linkHref="/projects" linkLabel="all projects →" />
         <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))" }}>
           {featured.map((project) => (
             <FeaturedProjectCard key={project.title} project={project} />
