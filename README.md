@@ -25,7 +25,8 @@ title: "Post title"
 date: "2026-01-01"
 type: technical # or journal
 excerpt: "One or two sentences for cards and <meta description>."
-cover: "cover — short description" # placeholder label shown on the striped cover art
+cover: "cover — short description" # label on the striped placeholder; alt text when coverArt is set
+coverArt: gradient-descent # optional; key of a cover registered in src/components/post-cover.tsx
 readTime: 7 # optional; computed from word count if omitted
 attachments: # optional
   - { file: "./notes.pdf", label: "notes.pdf" }

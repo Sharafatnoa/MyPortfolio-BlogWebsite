@@ -2,7 +2,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CoverPlaceholder } from "@/components/cover-placeholder";
+import { PostCover } from "@/components/post-cover";
 import { mdxComponents } from "@/components/mdx";
 import { formatDate } from "@/lib/utils";
 import { getAllSlugs, getPost } from "@/lib/posts";
@@ -52,7 +52,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       </h1>
 
       <div className="mt-9 overflow-hidden rounded-[8px] border border-line">
-        <CoverPlaceholder label={frontmatter.cover} aspect="16/9" />
+        <PostCover label={frontmatter.cover} art={frontmatter.coverArt} aspect="16/9" />
       </div>
 
       <div className="post-body mt-[34px]">

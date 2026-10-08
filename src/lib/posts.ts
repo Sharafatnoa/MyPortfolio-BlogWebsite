@@ -23,6 +23,7 @@ export interface PostFrontmatter {
   type: PostType;
   excerpt: string;
   cover: string;
+  coverArt?: string;
   readTime?: number;
   attachments?: AttachmentRef[];
   draft?: boolean;

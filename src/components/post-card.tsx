@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CoverPlaceholder } from "./cover-placeholder";
+import { PostCover } from "./post-cover";
 import { formatDate } from "@/lib/utils";
 import type { PostSummary } from "@/lib/posts";
 
@@ -15,7 +15,7 @@ export function PostCard({ post, showReadTime = false }: PostCardProps) {
       href={`/blog/${post.slug}`}
       className="group flex flex-col overflow-hidden rounded-[8px] border border-line bg-panel text-ink transition-colors hover:border-ink2"
     >
-      <CoverPlaceholder label={post.cover} />
+      <PostCover label={post.cover} art={post.coverArt} />
       <div className="flex flex-1 flex-col gap-[9px] px-[17px] pt-[16px] pb-[18px]">
         <div className="flex items-center gap-[9px] font-mono text-[10.5px]">
           <span
