@@ -207,6 +207,15 @@ textarea {
   line-height: 1.72;
   color: var(--ink);
 }
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li + li {
+  margin-top: 6px;
+}
 .post-body strong {
   font-weight: 600;
 }
@@ -239,4 +248,33 @@ textarea {
 }
 .post-body a:hover {
   color: var(--ink);
+}
+.post-body .table-wrap {
+  margin: 26px 0 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.post-body th,
+.post-body td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.post-body th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink2);
+  background: var(--soft);
+}
+.post-body tbody tr:last-child td {
+  border-bottom: none;
 }

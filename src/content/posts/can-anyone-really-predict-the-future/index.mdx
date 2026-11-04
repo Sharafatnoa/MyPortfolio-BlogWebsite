@@ -1,0 +1,188 @@
+---
+title: "Can Anyone Really Predict the Future? What a Forecasting Course Taught Me"
+date: "2026-11-04"
+type: journal
+excerpt: "Three research papers, one forecasting course, and what I learned about why predicting the future is hard, what actually works, and why one lucky call proves almost nothing."
+cover: "Forecast fan: a range of possible futures that widens with time"
+readTime: 9
+draft: false
+---
+
+As a master's student in Data Science, I found one of our recently completed courses, Predictive Analytics, to be one of the most interesting but underrated subjects. The whole point of the course is forecasting. Or, to put it simply: predicting the future!
+
+Here's the funny part. Imagine my high school friend says France will win the 2030 World Cup, just like that, from his gut. Meanwhile a PhD forecaster analyses decades of match data, models the trends, and predicts England. Then France wins.
+
+Does that make my friend a better forecaster than the PhD researcher? Honestly, I'd love to see him try that argument. But the real answer, as I learned, is **no**. One lucky call proves almost nothing. We'll come back to my friend at the end.
+
+As part of the course I had to read three research papers and defend them in a seminar, from memory, with no laptop and no notes. They taught me a lot about what forecasting really is, why it's so hard, and what actually works. This post is my attempt to share that in plain language, with plenty of charts.
+
+## So what is Predictive Analytics, really?
+
+Predictive Analytics (or forecasting) is the science of using the past to make an honest guess about the future. We did the course at the University of Skövde and worked in R.
+
+In practice that means four things:
+
+1. **Look at the past.** Is there a trend? Do sales jump every summer (seasonality)?
+2. **Pick a model** that captures those patterns.
+3. **Test it honestly.** Hide the last few months from the model, let it forecast them, then compare with what really happened.
+4. **Say how unsure you are.** A forecast is not one number, it is a range.
+
+Point 4 surprised me the most. A professional forecast looks less like "we will sell 132 units" and more like this:
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/01-forecast-fan.png"
+  alt="A good forecast is a range that widens with time"
+  caption="Illustrative numbers, made up for this post"
+/>
+
+The further ahead you look, the wider the range gets. That's not a weakness of the model. That's the model being honest.
+
+Why does this matter? Because almost everything around us runs on forecasts. How much bread a supermarket bakes tomorrow. How much electricity the grid needs tonight. How many nurses a hospital schedules next week. Whether a central bank raises interest rates. When forecasting works, nobody notices. When it fails, everybody does.
+
+## Underrated, complicated, and honestly a bit risky
+
+**Underrated**, because a good forecast is invisible. Shelves are full, the lights stay on, nobody thanks the forecaster. Fun fact: the word "forecast" itself was coined by Robert FitzRoy for his daily weather predictions in the 1850s, and he was heavily criticised for them at the time.
+
+**Complicated**, because forecasting people is much harder than forecasting planets. Weather forecasts have improved enormously, because physics doesn't change its mind. Society does. The first paper I read gives three reasons:
+
+1. **There is no clear formula for human behaviour**, so we rely on patterns in the data.
+2. **The data we have is often not the data we need.** To forecast next quarter's GDP, we have tons of daily stock market data, but no daily data on what people actually spend.
+3. **Forecasts change the future they predict.** If a central bank forecasts a housing boom and raises interest rates, the boom may never come. The forecast was "wrong" because it worked.
+
+**Risky**, because when forecasts fail, they fail big. Some of history's most confident predictions aged terribly:
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/02-famous-misses.png"
+  alt="Even experts get the future badly wrong"
+  caption="Source: Makridakis, Hyndman & Petropoulos (2020), sections 1.2 and 3.1"
+/>
+
+It's also risky for the people doing it. A few lucky calls can turn a stock-picker into a "guru", while one notorious miss can end an established forecaster's career. Many companies still run a "one big mistake and you're out" culture. And some pay sales staff bonuses for beating their forecasts, which quietly teaches them to forecast low. The incentives often work against accuracy.
+
+## Paper 1: What forecasters actually know (and don't)
+
+The first paper, by Makridakis, Hyndman and Petropoulos, is basically a "state of the union" for forecasting. Much of its evidence comes from the famous **M competitions**, where researchers and companies all forecast the same set of time series and get scored on the same rules. The latest at the time, M4, had **100,000 series**. No cherry-picking possible.
+
+The lessons that stuck with me:
+
+- **Fitting the past is not the same as predicting the future.** A model that explains history perfectly often just memorised its noise.
+- **There is no single best model.** If you could magically pick the right model for every series in advance, errors would drop by up to 30%. Nobody can do that reliably.
+- **So don't bet on one model. Combine several.** When one model guesses too high and another too low, their average lands closer to the truth.
+
+Here's that last point in numbers, using the M4 data (lower bars = smaller errors):
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/03-m4-errors-by-method.png"
+  alt="Combinations had the lowest error on the M4 data"
+  caption="Source: Makridakis, Hyndman & Petropoulos (2020), Table 1, M4 competition data"
+/>
+
+The two blue bars are combinations. The winner, FFORMA, uses machine learning to decide how much to trust each of several classic models. The runner-up is literally just the average of two models. Simple, cheap, and better than any single method in the test.
+
+**What about AI and machine learning?** This one surprised me. On short business and economic series, pure machine learning mostly *lost* to classic statistics. In one study of 1,045 monthly series, the best ML method was less accurate than the worst statistical one. In M4, most ML methods did worse than a very simple benchmark.
+
+The reason is simple: too many knobs, too little data. A small neural network can have 60+ settings to learn, while a quarterly series covering 25 years has only 100 data points. It ends up memorising noise. ML shines when it can learn from thousands of similar series at once, like Amazon forecasting sales for millions of products.
+
+**What about human judgment?** Humans are biased. We flatten trends, stick too close to the last number we saw, and adjust forecasts upward out of optimism. Judgment helps most when it *adjusts* a model's forecast, and when several people's views are averaged.
+
+**And the biggest lesson: always say how unsure you are.** The authors say a forecast without its uncertainty is not far from fortune-telling. Worse, the uncertainty itself is often underestimated:
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/04-interval-coverage.png"
+  alt="A 95% range does not always hit 95% of the time"
+  caption="Source: Makridakis, Hyndman & Petropoulos (2020), section 1.4.1"
+/>
+
+A range that promises 95% but only hits 77% of the time is overconfident. The future is always more uncertain than our models think.
+
+## Paper 2: Forecasting tourism while the world was in lockdown
+
+Now imagine your job is to forecast how many tourists will visit 20 countries in 2021. It's late 2020. Borders are closed, vaccines aren't out yet, and nobody knows when things will reopen. That was the challenge in the second paper, by Kourentzes and colleagues (the first author is at Skövde's AI Lab, which made it extra fun to read).
+
+They solved it in two steps.
+
+**Step 1: find the best model for normal times.** They tested everything, from simple benchmarks to neural networks and random forests, on 120 quarterly series. The winner was a classic statistical model with a clever twist called **THieF-ETS**. It forecasts each series twice, once per quarter and once per year, and then makes the two agree. The yearly view shows the long-term trend clearly; the quarterly view keeps the summer and winter seasons. Once again, the machine learning models lost to the statistical ones, just as Paper 1 predicted.
+
+**Step 2: add human judgment, in a smart way.** No model can learn a pandemic from data that has never seen one. So they asked a group of analysts a very simple question: *between each pair of world regions, will travel be restricted (yes or no) in each quarter?* They averaged the answers and used them to scale down the model's normal forecast.
+
+Say 3 of 5 analysts expect restrictions. In the medium scenario, the forecast keeps 40% of normal visitors, so 10,000 expected tourists become 4,000. A pessimistic and an optimistic version of the same formula give the severe and mild scenarios:
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/05-judgment-to-scenarios.png"
+  alt="More analysts expecting restrictions means fewer visitors"
+  caption="Computed from the adjustment formula in Kourentzes et al. (2021); the 3-of-5 example is illustrative"
+/>
+
+This is exactly what Paper 1 recommends: break a hard question into simple ones, ask several people, average their answers, and use judgment to *adjust* a model rather than replace it.
+
+So where did they think tourism would land by the end of 2021? About **34% of 2019 levels in the severe scenario, 58% in the medium one, and 80% in the mild one**. Here's the picture for each country:
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/06-tourism-recovery-by-country.png"
+  alt="Recovery by end-2021: most destinations near 60% in the medium scenario"
+  caption="Source: Kourentzes et al. (2021), Table 5, 20 destinations"
+/>
+
+The pattern makes a lot of sense: **neighbours come back first, long-haul travellers last.** Mexico, for example, would get back about two-thirds of its normal visitors from Canada and the USA by early 2021, but only around a quarter from the UK and Brazil. Countries that rely on long flights, like Chile and Mauritius, recover the slowest. Japan recovers the most in every scenario.
+
+## Paper 3: Can a simple AI model forecast the U.S. economy?
+
+The third paper, by Maccarrone, Morelli and Spadaccini, asks a question I love: for forecasting U.S. GDP (the size of the economy), should we use classic statistics or machine learning?
+
+Their machine learning model is called **K-Nearest Neighbours (KNN)**, and it's surprisingly easy to understand. It's basically pattern matching:
+
+1. Last quarter, the economy grew by 0.50%.
+2. KNN searches history for the two quarters that looked most similar, say 0.48% and 0.53%.
+3. It checks what happened *right after* those quarters: 0.60% and 0.40%.
+4. It averages them: (0.60 + 0.40) / 2 = **0.50%**. That's the forecast.
+
+The classic competitor is **autoregression (AR)**, which applies one fixed formula to recent values. Something like "next quarter = half of last quarter's growth". A third model, **linear regression**, also looked at interest rates and other economic data.
+
+They tested the models on 2019 (a calm year) and 2020 (COVID). Look what happened:
+
+<Figure
+  src="/blog/can-anyone-really-predict-the-future/files/images/07-gdp-forecast-misses.png"
+  alt="GDP forecast misses were tiny in 2019, then COVID blew them up"
+  caption="Source: Maccarrone, Morelli & Spadaccini (2021), Table 3 (Scenario 4); misses shown as the square root of each MSE"
+/>
+
+In 2019, all three models were impressively accurate, missing by tiny fractions of a percent. Then COVID hit and every model missed by 7% to 13%. **No model saw the crash coming.** The data simply had no clue about lockdowns.
+
+The interesting part is the rebound in 2020 Q3. After GDP fell about 9%, AR's fixed formula did what it always does: it carried the fall forward and predicted *more* decline (roughly half of −9%, so about −4.5%). Instead, the economy bounced back by about 7.5%. AR missed by about 13 points. KNN and linear regression weren't locked into that formula, so they missed less.
+
+Overall, KNN won for one-quarter-ahead forecasts, and linear regression with interest-rate data won for forecasts up to three years ahead. Interest rates turned out to carry real information about where the economy is heading.
+
+## So, who won?
+
+<div className="table-wrap">
+<table>
+<thead><tr><th>Paper</th><th>The question</th><th>The winner</th></tr></thead>
+<tbody>
+<tr><td>1. State of the art</td><td>What works across 100,000 series?</td><td>Combinations of models</td></tr>
+<tr><td>2. Tourism in COVID</td><td>How do we forecast the unforecastable?</td><td>Classic statistics (THieF-ETS) + structured human judgment</td></tr>
+<tr><td>3. U.S. GDP</td><td>Statistics or machine learning?</td><td>KNN for next quarter, linear regression with interest rates for the long run</td></tr>
+</tbody>
+</table>
+</div>
+Wait, didn't Paper 1 say machine learning usually loses? And now KNN wins in Paper 3? Both can be true, and figuring out why taught me the most:
+
+1. **Simple and combined beats fancy and alone.** KNN with two neighbours has almost no settings to learn, so it doesn't fall into the "too many knobs, too little data" trap that sank the bigger ML models.
+2. **How you test decides who wins.** Paper 3 tested on only 8 quarters, and two COVID quarters had misses thousands of times bigger than the rest. So "best model" there mostly means "least wrong about COVID". It also never compared against the simplest possible forecast ("next quarter = last quarter"), which Paper 1 says every study should include.
+3. **Human judgment works best with structure.** Simple questions, several people, averaged, used to adjust a model. Not one confident expert's gut feeling.
+4. **Always say how unsure you are.** A single number feels confident. A range is honest.
+
+Coming from five years in software quality assurance, point 2 is the one I recognise most. A test suite with 8 cases, two of them extreme, tells you little about how the system behaves in production. Forecasting models deserve the same scepticism: a bigger and more varied test set, a simple baseline to beat, and more than one metric.
+
+## Back to my friend and the World Cup
+
+So, is my friend a better forecaster than the PhD researcher because he called France? No. Paper 1 is clear about this: **one lucky call proves almost nothing.** A few lucky stock picks can turn someone into a "guru" overnight, and their luck usually runs out. Good forecasters are judged over hundreds of forecasts, and by how they made them, not by one headline.
+
+That said, if my friend keeps calling World Cups right for the next 30 years, I'll happily update my view. That's what good forecasters do.
+
+If I had to sum up the whole course in one sentence: **start simple, combine where you can, test honestly, and always say how unsure you are.**
+
+## References
+
+- Makridakis, S., Hyndman, R. J., & Petropoulos, F. (2020). Forecasting in social settings: The state of the art. *International Journal of Forecasting*, 36(1), 15–28. [doi:10.1016/j.ijforecast.2019.05.011](https://doi.org/10.1016/j.ijforecast.2019.05.011)
+- Kourentzes, N., Saayman, A., Jean-Pierre, P., Provenzano, D., Sahli, M., Seetaram, N., & Volo, S. (2021). Visitor arrivals forecasts amid COVID-19: A perspective from the Africa team. *Annals of Tourism Research*, 88, 103197. [doi:10.1016/j.annals.2021.103197](https://doi.org/10.1016/j.annals.2021.103197)
+- Maccarrone, G., Morelli, G., & Spadaccini, S. (2021). GDP Forecasting: Machine Learning, Linear or Autoregression? *Frontiers in Artificial Intelligence*, 4, 757864. [doi:10.3389/frai.2021.757864](https://doi.org/10.3389/frai.2021.757864)
