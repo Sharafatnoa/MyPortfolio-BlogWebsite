@@ -1,8 +1,10 @@
 import type { ComponentType } from "react";
 import { CoverPlaceholder } from "./cover-placeholder";
+import { ForecastFanCover } from "./covers/forecast-fan-cover";
 import { GradientDescentCover } from "./covers/gradient-descent-cover";
 
 const COVER_ART: Record<string, ComponentType<{ label: string }>> = {
+  "forecast-fan": ForecastFanCover,
   "gradient-descent": GradientDescentCover,
 };
 
